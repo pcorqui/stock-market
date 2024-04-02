@@ -1,5 +1,8 @@
-<div class="stock-container">
-    <div class="name"><h3>{{name}}</h3> - <h4>({{code }})</h4></div>
-    <div class="price" [class]="positiveChange ? 'positive' : 'negative'">${{price}}</div>
-    <button (click)="toggleFavorite()" [disabled]="favorite">Add to Favorite</button>
+<div class="stock-container" *ngFor="let stock of stocks; index as i">
+    <div class="name"><h3>{{stock.name}}</h3> - <h4>({{stock.code }})</h4></div>
+    <div class="price" [ngClass]="stockClasses">${{stock.price}}</div>
+    <button (click)="toggleFavorite($event, i)" *ngIf="!stock.favorite ;else templateName">Add to Favorite</button>
+    <ng-template #templateName>
+        <p>otra cosa</p>
+    </ng-template>
 </div>
