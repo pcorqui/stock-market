@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Stock } from '../../model/stock';
 
 @Component({
@@ -8,7 +8,9 @@ import { Stock } from '../../model/stock';
 })
 export class StockItemComponent implements OnInit {
 
-  public stock: Stock = new Stock('Test Stock Company', 'TSC',85,80);
+
+  @Input() public stock: Stock = new Stock('abc', 'abc hijo ',85,80);
+  @Output() private toggleFavorite = new EventEmitter();
   public stocks: Stock[] = [];
 
   public stockClasses: Object = {};
@@ -25,15 +27,19 @@ export class StockItemComponent implements OnInit {
       "small-change": !largeChage
     };
 
-    this.stocks = [ new Stock('Test Stock Company', 'TSC',85,80),
-                    new Stock('Test Stock Company', 'TSC',85,80),
-                    new Stock('Test Stock Company', 'TSC',85,80)];
+    this.stocks = [ new Stock('peras', 'TSC',85,80),
+                    new Stock('manzanas', 'TSC',85,80),
+                    new Stock('Ciruelas', 'TSC',85,80)];
 
   }
 
-  toggleFavorite(event: Event, index: number){
+  toggleFavoriteMethod(event: Event, index: number){
     console.log('We are toggling the favorite state for this stock',event);
     this.stocks[index].favorite = !this.stocks[index].favorite;
+  }
+
+  onToggleFavorite(index: number){
+    this.toggleFavorite.emit(this.stocks[index]); //esto emite el valor de stock
   }
 
 }

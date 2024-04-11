@@ -1,7 +1,8 @@
+<div>{{stock.name}} - {{stock.code}}</div>
 <div class="stock-container" *ngFor="let stock of stocks; index as i">
     <div class="name"><h3>{{stock.name}}</h3> - <h4>({{stock.code }})</h4></div>
     <div class="price" [ngClass]="stockClasses">${{stock.price}}</div>
-    <button (click)="toggleFavorite($event, i)" *ngIf="!stock.favorite ;else templateName">Add to Favorite</button>
+    <button (click)="onToggleFavorite(i)" *ngIf="!stock.favorite ;else templateName">Add to Favorite</button>
     <ng-template #templateName>
         <p>otra cosa</p>
     </ng-template>
